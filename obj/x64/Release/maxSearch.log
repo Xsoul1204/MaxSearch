@@ -1,0 +1,10 @@
+﻿     正在创建库 D:\Workspaces\visual studio 2012\mappath\maxSearch\\obj\x64\Release\\maxSearch.lib 和对象 D:\Workspaces\visual studio 2012\mappath\maxSearch\\obj\x64\Release\\maxSearch.exp
+  maxSearch.vcxproj -> C:\Program Files\Autodesk\3ds Max 2016\plugins\maxSearch.dlu
+  ==== RunMUIRCT: Start ====
+  RunMUIRCT: WARNING - Could not find version info in file: C:\Program Files\Autodesk\3ds Max 2016\plugins\maxSearch.dlu
+  
+  There is no version resource in the file 
+  Language neutral file (C:\Users\ADMINI~1\AppData\Local\Temp\RunMUIRCT\maxSearch.dlu.ln) successfully created
+  MUI file (C:\Users\ADMINI~1\AppData\Local\Temp\RunMUIRCT\maxSearch.dlu.mui) successfully created 
+  FixCheckSum: No checksum fix required
+  ==== RunMUIRCT: Successs ====

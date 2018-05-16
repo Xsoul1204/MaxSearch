@@ -1,0 +1,143 @@
+﻿  Searcher.cpp
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+  MySQLConnector.cxx
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(231): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 215
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(293): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 277
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(359): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 343
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(444): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 428
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(497): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 481
+d:\workspaces\visual studio 2012\mappath\maxsearch\test\mysqlconnector.cxx(740): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 724
+  Main.cpp
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+c:\program files\mysql\connectorcpp\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+  LedgerInfo.cpp
+  Generating Code...
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sql::SQLString::~SQLString(void)" (__imp_??1SQLString@sql@@QAE@XZ) referenced in function "private: void __thiscall MySQLConnector::GetDBMetaData(class sql::Connection *)const " (?GetDBMetaData@MySQLConnector@@ABEXPAVConnection@sql@@@Z)
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sql::SQLString::SQLString(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (__imp_??0SQLString@sql@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "public: bool __thiscall MySQLConnector::connectServer(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?connectServer@MySQLConnector@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@000@Z)
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sql::SQLString::SQLString(char const * const)" (__imp_??0SQLString@sql@@QAE@QBD@Z) referenced in function "private: void __thiscall MySQLConnector::GetDBMetaData(class sql::Connection *)const " (?GetDBMetaData@MySQLConnector@@ABEXPAVConnection@sql@@@Z)
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sql::SQLString::operator class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &(void)const " (__imp_??BSQLString@sql@@QBEABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ) referenced in function "public: bool __thiscall MySQLConnector::queryEquipmentModelNumList(class std::vector<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int>,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int> > > &,int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > *)const " (?queryEquipmentModelNumList@MySQLConnector@@QBE_NAAV?$vector@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@V?$allocator@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@@2@@std@@HHPAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@@Z)
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const & __thiscall sql::SQLString::asStdString(void)const " (__imp_?asStdString@SQLString@sql@@QBEABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ) referenced in function "class std::basic_ostream<char,struct std::char_traits<char> > & __cdecl std::operator<<(class std::basic_ostream<char,struct std::char_traits<char> > &,class sql::SQLString const &)" (??6std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@ABVSQLString@sql@@@Z)
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const & __thiscall sql::SQLException::getSQLState(void)const " (__imp_?getSQLState@SQLException@sql@@QBEABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ) referenced in function __catch$?connectServer@MySQLConnector@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@000@Z$0
+MySQLConnector.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: int __thiscall sql::SQLException::getErrorCode(void)const " (__imp_?getErrorCode@SQLException@sql@@QBEHXZ) referenced in function __catch$?connectServer@MySQLConnector@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@000@Z$0
+MySQLConnector.obj : error LNK2019: unresolved external symbol __imp__get_driver_instance referenced in function "public: __thiscall MySQLConnector::MySQLConnector(void)" (??0MySQLConnector@@QAE@XZ)
+D:\Workspaces\visual studio 2012\mappath\maxSearch\Debug\test.exe : fatal error LNK1120: 8 unresolved externals

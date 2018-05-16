@@ -1,0 +1,143 @@
+﻿  Searcher.cpp
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\cppconn/exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\cppconn/exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+Searcher.cpp(38): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+Searcher.cpp(54): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+Searcher.cpp(70): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+Searcher.cpp(86): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+Searcher.cpp(102): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+Searcher.cpp(125): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+  MySQLConnector.cxx
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+c:\program files\mysql\connectorcpp\include\cppconn\exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+MySQLConnector.cxx(144): warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+MySQLConnector.cxx(171): warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+MySQLConnector.cxx(231): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 215
+MySQLConnector.cxx(293): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 277
+MySQLConnector.cxx(359): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 343
+MySQLConnector.cxx(444): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 428
+MySQLConnector.cxx(497): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 481
+MySQLConnector.cxx(740): warning C4286: 'sql::InvalidArgumentException &' : is caught by base class ('sql::SQLException &') on line 724
+  Main.cpp
+c:\program files\mysql\connectorcpp\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\cppconn/exception.h(61): warning C4251: 'sql::SQLException::sql_state' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\cppconn/exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option' : class 'std::basic_string<_Elem,_Traits,_Alloc>' needs to have dll-interface to be used by clients of struct 'sql::SQLUnsupportedOptionException'
+          with
+          [
+              _Elem=char,
+              _Traits=std::char_traits<char>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_driver.h(52): warning C4251: 'sql::mysql::MySQL_Driver::proxy' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Driver'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeDriverWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy' : class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::NativeAPI::NativeConnectionWrapper
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_Statement
+          ]
+C:\Program Files\MySQL\ConnectorCPP\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern' : class 'boost::scoped_ptr<T>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
+          with
+          [
+              T=sql::mysql::MySQL_ConnectionData
+          ]
+  LedgerInfo.cpp
+  Generating Code...
+  test.vcxproj -> D:\Workspaces\visual studio 2012\mappath\maxSearch\test\x64\Debug\test.exe
