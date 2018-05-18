@@ -704,9 +704,8 @@ bool MySQLConnector::queryLedgerInfo(
 			queryLedgerSchedule(finished,ledgerID);
 			if(finished==1){
 				ledgerInfo.setValue(LedgerInfo::e_Finished, "已匹配");
-			}else if(finished==0){
-				ledgerInfo.setValue(LedgerInfo::e_Finished, "已取消");
-			}else{
+			}else
+			{
 				ledgerInfo.setValue(LedgerInfo::e_Finished, "未匹配");
 			}
 			ledgerInfo.setValue(LedgerInfo::e_Name, UTF8_To_string(res->getString("Name")));

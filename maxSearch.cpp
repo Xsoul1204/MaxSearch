@@ -45,6 +45,9 @@ public:
 	void updateProducer();
 	void putCatalog();
 	void putCombo();
+	void putIsMatch();
+	void updateIsMatch();
+	void updateList();
 	void search();
 	void match();
 	void cancel();
@@ -52,7 +55,7 @@ public:
 	void showMessage(string meaasge);
 	void updateCombo();
 	int getCatalogID();
-	void putEmpty(HWND hWnd);
+	void putAllElement(HWND hWnd);
 	void initResult();
 	static wchar_t* char2wchar(const char* char_temp)
 	{
@@ -87,11 +90,13 @@ private:
 	HWND producerCombo;
 	HWND modelNumCombo;
 	HWND regionCombo;
+	HWND isMatchCombo;
 	HWND searchEdit;
 	HWND resultList;
 	HWND selected;
 	HWND prefixEdit;
 	HWND progress;
+	HWND messageEdit;
 	MySQLConnector::aStringIntArray catalogList1;
 	MySQLConnector::aStringIntArray catalogList2;
 	MySQLConnector::aStringIntArray catalogList3;
@@ -99,6 +104,7 @@ private:
 	MySQLConnector::aStringIntArray modelNumList;
 	MySQLConnector::aStringArray regionNames;
 	MySQLConnector::aLedgerInfoArray ledgerInfoArr;
+	std::vector<LedgerInfo*> trueLedgerInfoArr;
 	int catalogParent1;
 	int catalogParent2;
 	int catalogID;
@@ -107,6 +113,7 @@ private:
 	vector<int> selectList;
 	bool startSearch;
 	bool noChange;
+	string isMatch;
 };
 
 class maxSearch : public UtilityObj 
@@ -279,12 +286,10 @@ void SearchDialog::showMessage(string message){
 void SearchDialog::setStationID(int stationID){
 	this->stationID=stationID;
 }
-void SearchDialog::putEmpty(HWND hWnd){
-	int idx =SendMessageA(hWnd, CB_ADDSTRING, 0, (LPARAM)(""));
+void SearchDialog::putAllElement(HWND hWnd){
+	int idx =SendMessageA(hWnd, CB_INSERTSTRING, -1, (LPARAM)("全部"));
 	SendMessageA(hWnd, CB_SETITEMDATA, idx, (LPARAM)(-1));
-	if(SendMessageA(hWnd, CB_GETCOUNT, 0, 0)>0){
-		SendMessageA(hWnd,CB_SETCURSEL,0,0);
-	}
+	SendMessageA(hWnd,CB_SETCURSEL,idx,0);
 }
 int SearchDialog::getCatalogID(){
 	if(SendMessageA(catalogCombo3, CB_GETCOUNT, 0, 0)>0){
@@ -308,13 +313,13 @@ void SearchDialog::updateCatalog()
 		if(data1!=catalogParent1){
 			catalogList2=Searcher::GetInstance()->FindCatalog(data1);
 			Searcher::GetInstance()->putElements(catalogCombo2,catalogList2);
-			putEmpty(catalogCombo2);
+			putAllElement(catalogCombo2);
 			if(SendMessageA(catalogCombo2, CB_GETCOUNT, 0, 0)>0){
 				int idx2 = SendMessageA(catalogCombo2, CB_GETCURSEL, 0, 0);
 				catalogParent2 = SendMessageA(catalogCombo2, CB_GETITEMDATA, idx2, 0);
 				catalogList3=Searcher::GetInstance()->FindCatalog(catalogParent2);
 				Searcher::GetInstance()->putElements(catalogCombo3,catalogList3);
-				putEmpty(catalogCombo3);
+				putAllElement(catalogCombo3);
 			}else if(SendMessageA(catalogCombo2, CB_GETCOUNT, 0, 0)==0){
 				catalogParent2=-1;
 			}
@@ -325,7 +330,7 @@ void SearchDialog::updateCatalog()
 			if(data2!=catalogParent2){
 				catalogList3=Searcher::GetInstance()->FindCatalog(data2);
 				Searcher::GetInstance()->putElements(catalogCombo3,catalogList3);
-				putEmpty(catalogCombo3);
+				putAllElement(catalogCombo3);
 				catalogParent2=data2;
 			}
 		}
@@ -333,12 +338,14 @@ void SearchDialog::updateCatalog()
 void SearchDialog::updateProducer(){
 	manufacturerNames=Searcher::GetInstance()->FindProducer(stationID,catalogID);
 	Searcher::GetInstance()->putElements(producerCombo,manufacturerNames);
+	putAllElement(producerCombo);
 	int idx = SendMessageA(producerCombo,CB_GETCURSEL,0,0);
 	char szMessage[1024];
 	SendMessageA(producerCombo, CB_GETLBTEXT, idx, (LPARAM)szMessage);
 	producer = szMessage;
 	modelNumList=Searcher::GetInstance()->FindModelNum(stationID,catalogID,producer);
 	Searcher::GetInstance()->putElements(modelNumCombo,modelNumList);
+	putAllElement(modelNumCombo);
 }
 void SearchDialog::updateCombo(){
 	updateCatalog();
@@ -355,41 +362,63 @@ void SearchDialog::updateCombo(){
 			producer=nowProducer;
 			modelNumList=Searcher::GetInstance()->FindModelNum(stationID,catalogID,producer);
 			Searcher::GetInstance()->putElements(modelNumCombo,modelNumList);
+			putAllElement(modelNumCombo);
 		}
 	}
-
+	updateIsMatch();
+}
+void SearchDialog::updateIsMatch(){
+	int mIdx = SendMessageA(isMatchCombo,CB_GETCURSEL,0,0);
+	char szMessage[1024];
+	SendMessageA(isMatchCombo, CB_GETLBTEXT, mIdx, (LPARAM)szMessage);
+	string tempIsMatch(szMessage);
+	if(tempIsMatch!=isMatch){
+		isMatch=tempIsMatch;
+		EnableWindow(hDialog,FALSE);
+		updateList();
+	}
 }
 void SearchDialog::putCatalog(){
 	catalogList1=Searcher::GetInstance()->FindCatalog(0);
 	Searcher::GetInstance()->putElements(catalogCombo1,catalogList1);
 	int idx1 = SendMessageA(catalogCombo1,CB_GETCURSEL,0,0);
-	putEmpty(catalogCombo1);
+	putAllElement(catalogCombo1);
 	catalogParent1 = SendMessageA(catalogCombo1, CB_GETITEMDATA, idx1, 0);
 	catalogList2=Searcher::GetInstance()->FindCatalog(catalogParent1);
 	Searcher::GetInstance()->putElements(catalogCombo2,catalogList2);
-	putEmpty(catalogCombo2);
+	putAllElement(catalogCombo2);
 	int idx2 = SendMessageA(catalogCombo2,CB_GETCURSEL,0,0);
 	catalogParent2 = SendMessageA(catalogCombo2, CB_GETITEMDATA, idx2, 0);
 	catalogList3=Searcher::GetInstance()->FindCatalog(catalogParent2);
 	Searcher::GetInstance()->putElements(catalogCombo3,catalogList3);
-	putEmpty(catalogCombo3);
+	putAllElement(catalogCombo3);
 	catalogID = getCatalogID();
 }
 void SearchDialog::putCombo(){
 	putCatalog();
 	manufacturerNames=Searcher::GetInstance()->FindProducer(stationID,catalogID);
 	Searcher::GetInstance()->putElements(producerCombo,manufacturerNames);
+	putAllElement(producerCombo);
 	int idx = SendMessageA(producerCombo,CB_GETCURSEL,0,0);
 	char szMessage[1024];
 	SendMessageA(producerCombo, CB_GETLBTEXT, idx, (LPARAM)szMessage);
 	producer = szMessage;
 	modelNumList=Searcher::GetInstance()->FindModelNum(stationID,catalogID,producer);
 	Searcher::GetInstance()->putElements(modelNumCombo,modelNumList);
+	putAllElement(modelNumCombo);
 	regionNames=Searcher::GetInstance()->FindRegion(stationID);
 	Searcher::GetInstance()->putElements(regionCombo,regionNames);
-	putEmpty(regionCombo);
+	putAllElement(regionCombo);
+	putIsMatch();
 }
-
+void SearchDialog::putIsMatch(){
+	SendMessage(isMatchCombo, CB_RESETCONTENT, 0, 0);
+	int idx0 =SendMessageA(isMatchCombo, CB_ADDSTRING, 0, (LPARAM)("未匹配"));
+	int idx1 =SendMessageA(isMatchCombo, CB_ADDSTRING, 0, (LPARAM)("已匹配"));
+	int idx2 =SendMessageA(isMatchCombo, CB_ADDSTRING, 0, (LPARAM)("全部"));
+	SendMessageA(isMatchCombo,CB_SETCURSEL,idx2,0);
+	isMatch ="全部";
+};
 void SearchDialog::setHWND(){
 	GetCOREInterface()->RegisterDlgWnd(hDialog);
 	this->catalogCombo1=GetDlgItem(hDialog,IDC_CATALOG_COMBO1);
@@ -403,8 +432,10 @@ void SearchDialog::setHWND(){
 	this->selected=GetDlgItem(hDialog,IDC_SELECTED);
 	this->prefixEdit=GetDlgItem(hDialog,IDC_PREFIX_EDIT);
 	this->progress=GetDlgItem(hDialog,IDC_PROGRESS);
+	this->isMatchCombo=GetDlgItem(hDialog,IDC_ISMATCH_COMBO);
+	this->messageEdit=GetDlgItem(hDialog,IDC_MESSAGE_STATIC);
 
-	SetWindowTextA(hDialog,"台帐查询匹配工具V1.0");
+	SetWindowTextA(hDialog,"台帐查询匹配工具V1.1");
 	SetWindowTextA(GetDlgItem(hDialog,IDC_KEYWORD_STATIC),"关键词：");
 	SetWindowTextA(GetDlgItem(hDialog,IDC_SEARCH),"查询");
 	SetWindowTextA(GetDlgItem(hDialog,IDC_CATALOG_STATIC),"模型类型：");
@@ -415,6 +446,7 @@ void SearchDialog::setHWND(){
 	SetWindowTextA(GetDlgItem(hDialog,IDC_SELECTED_STATIC),"已选择:");
 	SetWindowTextA(GetDlgItem(hDialog,IDC_MATCH),"开始匹配");
 	SetWindowTextA(GetDlgItem(hDialog,IDC_CANCEL),"取消匹配");
+	SetWindowTextA(GetDlgItem(hDialog,IDC_ISMATCH_STATIC),"是否匹配");
 }
 void SearchDialog::initResult(){
 	SendMessageA(resultList, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, LVS_EX_FULLROWSELECT|LVS_EX_GRIDLINES|LVS_EX_CHECKBOXES);
@@ -475,37 +507,29 @@ void SearchDialog::DoDialog(){
 		(LPARAM)this);
 
 }
-void SearchDialog::search(){
-	startSearch=TRUE;
-	noChange=FALSE;
-	int len1 =SendMessageA(searchEdit, WM_GETTEXTLENGTH, 0, 0);
-	char* szMessage1=new char[len1+1];
-	SendMessageA(searchEdit,WM_GETTEXT,len1+1,(LPARAM)szMessage1);
-	string keywords = szMessage1;
-	int pIdx = SendMessageA(modelNumCombo,CB_GETCURSEL,0,0);
-	int equipmentID = SendMessageA(modelNumCombo, CB_GETITEMDATA, pIdx, 0);
-	int vIdx = SendMessageA(regionCombo, CB_GETCURSEL,0,0);
-	int regionID = SendMessageA(regionCombo, CB_GETITEMDATA, vIdx, 0);
-	if(regionID==-1){
-		ledgerInfoArr=Searcher::GetInstance()->FindLedger(stationID,catalogID,keywords,equipmentID,nullptr);
-	}else{
-		int len2 = SendMessageA(regionCombo, CB_GETLBTEXTLEN, vIdx,0);
-		char* szMessage2=new char[len2+1];
-		SendMessageA(regionCombo, CB_GETLBTEXT, vIdx, (LPARAM)szMessage2);
-		string region =szMessage2;
-		ledgerInfoArr=Searcher::GetInstance()->FindLedger(stationID,catalogID,keywords,equipmentID,&region);
-	}
-	itemCount=ledgerInfoArr.size();
+void SearchDialog::updateList(){
 	int row=0;
 	SendMessageA(resultList,LVM_DELETEALLITEMS,0,0);
+	itemCount=0;
+	trueLedgerInfoArr.clear();
+	for (auto iter = ledgerInfoArr.cbegin(); iter != ledgerInfoArr.cend(); iter++)
+	{
+		if(isMatch!="全部"){
+			string tempIsMatch=iter->getValue(LedgerInfo::e_Finished).c_str();
+			if(tempIsMatch!=isMatch){
+				continue;
+			}
+		}
+		trueLedgerInfoArr.push_back((LedgerInfo *)&(*iter));
+	}
+	itemCount=trueLedgerInfoArr.size();
+	if(itemCount<=0){
+		changeSelect();
+	}
 	SendMessageA(progress, PBM_SETRANGE, 0, MAKELPARAM(0,itemCount));
-	PBRANGE high;
-	SendMessageA(progress, PBM_GETRANGE, FALSE, (LPARAM)&high);
-	PBRANGE low;
-	SendMessageA(progress, PBM_GETRANGE, TRUE, (LPARAM)&low);
 	SendMessageA(progress, PBM_SETSTEP, (WPARAM)1, 0);
 	SendMessage(progress, PBM_SETPOS, (WPARAM)0, 0);
-	for (auto iter = ledgerInfoArr.cbegin(); iter != ledgerInfoArr.cend(); iter++)
+	for (auto iter = trueLedgerInfoArr.cbegin(); iter != trueLedgerInfoArr.cend(); iter++)
 	{
 		LV_ITEMA item ={0} ;
 		item.iItem=row;
@@ -513,31 +537,31 @@ void SearchDialog::search(){
 		SendMessageA(resultList , LVM_INSERTITEMA, 0, (LPARAM)(&item));
 		LV_ITEMA lvi;
 		lvi.iSubItem=0;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_Finished)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_Finished)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=1;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_Name)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_Name)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=2;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_EquipmentNum)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_EquipmentNum)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=3;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_EquipmentType)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_EquipmentType)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=4;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_EquipmentModelNum)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_EquipmentModelNum)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=5;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_EquipmentProducer)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_EquipmentProducer)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=6;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_Region)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_Region)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=7;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_OperateNum)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_OperateNum)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		lvi.iSubItem=8;
-		lvi.pszText=(char*)(iter->getValue(LedgerInfo::e_Remarks)).c_str();
+		lvi.pszText=(char*)((*iter)->getValue(LedgerInfo::e_Remarks)).c_str();
 		SendMessageA(resultList , LVM_SETITEMTEXTA, row, (LPARAM)(&lvi));
 		row++;
 		SendMessage(progress, PBM_STEPIT, 0, 0);
@@ -550,8 +574,51 @@ void SearchDialog::search(){
 		int nHeaderWidth = SendMessageA(resultList , LVM_GETCOLUMNWIDTH , i,0);
 		SendMessageA(resultList , LVM_SETCOLUMNWIDTH , i,max(nColumnWidth,nHeaderWidth));
 	}
+	int tempCount =0;
+	while (tempCount!=itemCount)
+	{
+		tempCount= SendMessageA(resultList , LVM_GETITEMCOUNT ,0,0);
+	}
+	EnableWindow(hDialog,TRUE);
+}
+void SearchDialog::search(){
+	EnableWindow(hDialog,FALSE);
+	SetWindowTextA(messageEdit,"正在查询...");
+	startSearch=TRUE;
+	noChange=FALSE;
+	int len1 =SendMessageA(searchEdit, WM_GETTEXTLENGTH, 0, 0);
+	char* szMessage1=new char[len1+1];
+	SendMessageA(searchEdit,WM_GETTEXT,len1+1,(LPARAM)szMessage1);
+	string keywords = szMessage1;
+	int pIdx = SendMessageA(producerCombo,CB_GETCURSEL,0,0);
+	int producerID = SendMessageA(producerCombo, CB_GETITEMDATA, pIdx, 0);
+	int mIdx = SendMessageA(modelNumCombo,CB_GETCURSEL,0,0);
+	int equipmentID = SendMessageA(modelNumCombo, CB_GETITEMDATA, mIdx, 0);
+	int vIdx = SendMessageA(regionCombo, CB_GETCURSEL,0,0);
+	int regionID = SendMessageA(regionCombo, CB_GETITEMDATA, vIdx, 0);
+	string*region =nullptr;
+	if(regionID!=-1){
+		int len2 = SendMessageA(regionCombo, CB_GETLBTEXTLEN, vIdx,0);
+		char* szMessage2=new char[len2+1];
+		SendMessageA(regionCombo, CB_GETLBTEXT, vIdx, (LPARAM)szMessage2);
+		string temp(szMessage2);
+		region =&temp;
+	}
+	ledgerInfoArr.clear();
+	if(producerID!=-1){
+		for (auto iter = modelNumList.cbegin(); iter != modelNumList.cend(); iter++)
+		{
+			int tempEquipmentID = iter->second;
+			MySQLConnector::aLedgerInfoArray tempLedgerInfoArr=Searcher::GetInstance()->FindLedger(stationID,catalogID,keywords,tempEquipmentID,region);
+			ledgerInfoArr.insert(ledgerInfoArr.end(),tempLedgerInfoArr.begin(),tempLedgerInfoArr.end());
+		}
+	}else{
+		ledgerInfoArr=Searcher::GetInstance()->FindLedger(stationID,catalogID,keywords,equipmentID,region);
+	}
+	updateList();
 	startSearch=FALSE;
 	noChange=FALSE;
+	SetWindowTextA(messageEdit,"查询完毕");
 }
 void SearchDialog::match(){
 	int nodeCount = mInterface.GetSelNodeCount();
@@ -564,8 +631,8 @@ void SearchDialog::match(){
 				if(i+1>nodeCount){
 					break;
 				}
-				LedgerInfo ledgerInfo =ledgerInfoArr[selectList[i]];
-				string equipmentNum = ledgerInfo.getValue(LedgerInfo::e_EquipmentNum);
+				LedgerInfo* ledgerInfo =trueLedgerInfoArr[selectList[i]];
+				string equipmentNum = ledgerInfo->getValue(LedgerInfo::e_EquipmentNum);
 				std::stringstream ss;
 				int len =SendMessageA(prefixEdit, WM_GETTEXTLENGTH, 0, 0);
 				char* prefix=new char[len+1];
@@ -574,7 +641,7 @@ void SearchDialog::match(){
 				if(prefixStr.size()>0){
 					ss << prefix << "-"<<equipmentNum;
 				}else{
-					string code=Searcher::GetInstance()->FindCode(ledgerInfo.getID());
+					string code=Searcher::GetInstance()->FindCode(ledgerInfo->getID());
 					if(code==""){
 						ss <<"QT-"<<equipmentNum;
 					}else{
@@ -582,7 +649,7 @@ void SearchDialog::match(){
 					}
 				}
 				mInterface.GetSelNode(i)->SetName(char2wchar(ss.str().c_str()));
-				if(!Searcher::GetInstance()->attachLedgerLink(ledgerInfo.getID())){
+				if(!Searcher::GetInstance()->attachLedgerLink(ledgerInfo->getID())){
 					success=FALSE;
 					if(i==0){
 						showMessage("匹配失败！");
@@ -590,6 +657,12 @@ void SearchDialog::match(){
 						showMessage("部分匹配失败！");
 					}
 					break;
+				}else{
+					ledgerInfo->setValue(LedgerInfo::e_Finished, "已匹配");
+					LV_ITEMA lvi;
+					lvi.iSubItem=0;
+					lvi.pszText=(char*)(ledgerInfo->getValue(LedgerInfo::e_Finished)).c_str();
+					SendMessageA(resultList , LVM_SETITEMTEXTA, selectList[i], (LPARAM)(&lvi));
 				}
 			}
 			if(success){
@@ -601,7 +674,6 @@ void SearchDialog::match(){
 				}
 			}
 			EnableWindow(hDialog,TRUE);
-			search();
 		}else{
 			showMessage("请先选中台帐条目！");
 		}
@@ -609,15 +681,14 @@ void SearchDialog::match(){
 		showMessage("请先选中场景内物体！");
 	}
 }
-
 void SearchDialog::cancel(){
 	if(selectList.size()>0){
 		bool success=TRUE;
 		EnableWindow(hDialog,FALSE);
 		for (int i=0;i<selectList.size();i++)
 		{
-			LedgerInfo ledgerInfo =ledgerInfoArr[selectList[i]];
-			if(!Searcher::GetInstance()->canelLedgerLink(ledgerInfo.getID())){
+			LedgerInfo* ledgerInfo =trueLedgerInfoArr[selectList[i]];
+			if(!Searcher::GetInstance()->canelLedgerLink(ledgerInfo->getID())){
 				success=FALSE;
 				if(i==0){
 					showMessage("取消失败！");
@@ -625,6 +696,12 @@ void SearchDialog::cancel(){
 					showMessage("部分取消失败！");
 				}
 				break;
+			}else{
+				ledgerInfo->setValue(LedgerInfo::e_Finished, "未匹配");
+				LV_ITEMA lvi;
+				lvi.iSubItem=0;
+				lvi.pszText=(char*)(ledgerInfo->getValue(LedgerInfo::e_Finished)).c_str();
+				SendMessageA(resultList , LVM_SETITEMTEXTA, selectList[i], (LPARAM)(&lvi));
 			}
 		}
 		search();
